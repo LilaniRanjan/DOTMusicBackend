@@ -1,30 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Artist Details</title>
-    </head>
-    <body>
-      {% extends 'DOTMusiccrudApp/base.html' %}  
-      {% block content %}
-      <h1>Artist Details</h1>
-      <table>
+<head>
+    <title>Artist and Album Details</title>
+</head>
+<body>
+    {% extends 'DOTMusiccrudApp/base.html' %}
+    {% block content %}
+    
+    <!-- Display Artist Details -->
+    <h1>Artist Details</h1>
+    <table border="1">
         <thead>
-            <th>Name</th>
-            <th>Bio</th>
-            <th>Profile Picture</th>
-            <th>Genre</th>
+            <tr>
+                <th>Name</th>
+                <th>Bio</th>
+                <th>Profile Picture</th>
+                <th>Genre</th>
+            </tr>
         </thead>
         <tbody>
-            {% for ar in artist %}
+            {% for artist in artists %}
             <tr>
-                <td>{{ ar.name }}</td>
-                <td>{{ ar.bio }}</td>
-                <td><img src="/media/artist_Pic/{{ ar.profile_picture.url }}" alt="Profile Picture" width="100" height="100"></td>
-                <td>{{ ar.genre }}</td>
+                <td>{{ artist.name }}</td>
+                <td>{{ artist.bio }}</td>
+                <td>
+                    {% if artist.profile_picture %}
+                        <img src="{{ artist.profile_picture.url }}" alt="Profile Picture" width="100" height="100">
+                    {% else %}
+                        No Picture
+                    {% endif %}
+                </td>
+                <td>{{ artist.genre }}</td>
             </tr>
             {% endfor %}
         </tbody>
-      </table>
-      {% endblock %}
-    </body>
+    </table>
+    
+    <!-- Display Album Details -->
+    <h1>Album Details</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Release Date</th>
+                <th>Genre</th>
+                <th>Cover Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for album in albums %}
+            <tr>
+                <td>{{ album.title }}</td>
+                <td>{{ album.artist.name }}</td> <!-- Correctly reference the artist's name -->
+                <td>{{ album.release_date }}</td>
+                <td>{{ album.genre }}</td>
+                <td>
+                    {% if album.cover_image %}
+                        <img src="{{ album.cover_image.url }}" alt="Cover Image" width="100" height="100">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% endblock %}
+</body>
 </html>

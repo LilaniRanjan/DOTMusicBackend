@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from DOTMusiccrudApp.models import Artist
+from DOTMusiccrudApp.models import Album, Artist
 
-# Create your views here.
-
-def retrive_Artist_view(request):
-    artist = Artist.objects.all()
-    return render(request, 'DOTMusiccrudApp/index.html',{'artist':artist})
+# Combined view to retrieve both artists and albums
+def retrieve_artist_and_album_view(request):
+    artists = Artist.objects.all()
+    albums = Album.objects.all()
+    return render(request, 'DOTMusiccrudApp/index.html', {'artists': artists, 'albums': albums})
