@@ -15,3 +15,10 @@ class Album(models.Model):
     cover_image = models.ImageField(upload_to='media/album_covers/', blank=True, null=True)  # Optional cover image
     genre = models.CharField(max_length=100, blank=True, null=True)  # Optional genre
     created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when the album is created
+
+class PopularRadio(models.Model):
+    name = models.CharField(max_length=255) 
+    description = models.TextField(blank=True, null=True)
+    cover_image = models.ImageField(upload_to='media/radio_covers/', blank=True, null=True)
+    rank = models.PositiveIntegerField()
+    added_at = models.DateTimeField(auto_now_add=True)

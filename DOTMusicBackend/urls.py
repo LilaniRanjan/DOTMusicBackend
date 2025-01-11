@@ -23,7 +23,7 @@ from DOTMusiccrudApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.retrieve_artist_and_album_view, name='home'),
+    path('', views.retrieve_artist_album_view_and_popular_radio, name='home'),
 ]
 
 # Serve media files during development
