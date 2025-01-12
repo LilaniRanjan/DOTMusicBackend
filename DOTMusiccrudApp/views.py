@@ -1,9 +1,14 @@
-from django.shortcuts import render
-from DOTMusiccrudApp.models import Album, Artist, PopularRadio
+from django.http import JsonResponse
+from .models import Artist, Album, PopularRadio
 
-# Combined view to retrieve both artists and albums
-def retrieve_artist_album_view_and_popular_radio(request):
-    artists = Artist.objects.all()
-    albums = Album.objects.all()
-    popular_radio = PopularRadio.objects.all()
-    return render(request, 'DOTMusiccrudApp/index.html', {'artists': artists, 'albums': albums, 'popular_radio': popular_radio})
+def get_artists(request):
+    artists = list(Artist.objects.values())
+    return JsonResponse({'artists': artists}, safe=False)
+
+def get_albums(request):
+    albums = list(Album.objects.values())
+    return JsonResponse({'albums': albums}, safe=False)
+
+def get_popular_radio(request):
+    radios = list(PopularRadio.objects.values())
+    return JsonResponse({'popular_radio': radios}, safe=False)
