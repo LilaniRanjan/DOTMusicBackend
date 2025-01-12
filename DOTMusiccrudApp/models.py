@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 # Create your models here.
@@ -22,3 +23,12 @@ class PopularRadio(models.Model):
     cover_image = models.ImageField(upload_to='radio_covers/', blank=True, null=True)
     rank = models.PositiveIntegerField()
     added_at = models.DateTimeField(auto_now_add=True)
+    
+
+class TodayInMusic(models.Model):
+    title = models.CharField(max_length=255)  # Headline for the event/news
+    description = models.TextField()  # Detailed information about the event/news
+    image = models.ImageField(upload_to='today_music/', blank=True, null=True)
+    event_date = models.DateField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
+
