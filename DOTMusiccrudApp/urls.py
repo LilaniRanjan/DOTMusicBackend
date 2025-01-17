@@ -8,4 +8,5 @@ urlpatterns = [
     path('today-in-music/', views.get_lastfive_today_in_music, name='get_today_in_music'),
     path('full-artists/', views.get_artists, name='get_full_artists'),
     path('full-albums/', views.get_lastfive_albums, name='get_full_albums'),
+    path('full-radio/', views.get_popular_radio, name='get_popular_radio'),
 ]
