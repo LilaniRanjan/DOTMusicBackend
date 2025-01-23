@@ -32,3 +32,16 @@ class TodayInMusic(models.Model):
     event_date = models.DateField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+class Songs(models.Model):
+    title = models.CharField(max_length=255)  # Title of the song
+    artist = models.ForeignKey('Artist', on_delete=models.CASCADE, related_name='songs')  # Reference to the artist
+    album = models.ForeignKey('Album', on_delete=models.SET_NULL, related_name='songs', blank=True, null=True)  # Optional reference to the album
+    duration = models.DurationField()  # Duration of the song
+    release_date = models.DateField()  # Release date of the song
+    genre = models.CharField(max_length=100, blank=True, null=True)  # Optional genre
+    audio_file = models.FileField(upload_to='songs/', blank=True, null=True)  # Optional audio file upload
+    lyrics = models.TextField(blank=True, null=True)  # Optional lyrics of the song
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when the song is created
+
+

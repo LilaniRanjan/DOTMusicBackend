@@ -9,4 +9,5 @@ urlpatterns = [
     path('full-artists/', views.get_artists, name='get_full_artists'),
     path('full-albums/', views.get_lastfive_albums, name='get_full_albums'),
     path('full-radio/', views.get_popular_radio, name='get_popular_radio'),
+    path('songs/artist/<int:artist_id>/', views.get_songs_by_artist, name='get_songs_by_artist'),
 ]

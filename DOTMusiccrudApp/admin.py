@@ -1,5 +1,5 @@
 from django.contrib import admin
-from DOTMusiccrudApp.models import Album, Artist, PopularRadio, TodayInMusic
+from DOTMusiccrudApp.models import Album, Artist, PopularRadio, TodayInMusic, Songs
 
 # Register your models here.
 class ArtistAdmin(admin.ModelAdmin):
@@ -24,3 +24,8 @@ class TodayInMusicAdmin(admin.ModelAdmin):
     list = ['title', 'description', 'image', 'event_date', 'created_at']
 
 admin.site.register(TodayInMusic, TodayInMusicAdmin)
+
+class SongsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'artist', 'album', 'duration', 'release_date', 'genre', 'audio_file', 'lyrics', 'created_at']
+
+admin.site.register(Songs, SongsAdmin)
