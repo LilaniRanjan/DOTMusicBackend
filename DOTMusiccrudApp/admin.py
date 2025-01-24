@@ -26,6 +26,6 @@ class TodayInMusicAdmin(admin.ModelAdmin):
 admin.site.register(TodayInMusic, TodayInMusicAdmin)
 
 class SongsAdmin(admin.ModelAdmin):
-    list_display = ['title', 'artist', 'album', 'duration', 'release_date', 'genre', 'audio_file', 'lyrics', 'created_at']
+    list_display = ['title', 'artist', 'album', 'duration', 'release_date', 'genre', 'audio_file', 'cover_image', 'lyrics', 'created_at']
 
 admin.site.register(Songs, SongsAdmin)

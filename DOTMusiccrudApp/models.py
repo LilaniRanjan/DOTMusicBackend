@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django.db import models
+from datetime import timedelta
 
 # Create your models here.
 class Artist(models.Model):
@@ -34,14 +35,28 @@ class TodayInMusic(models.Model):
 
 
 class Songs(models.Model):
-    title = models.CharField(max_length=255)  # Title of the song
-    artist = models.ForeignKey('Artist', on_delete=models.CASCADE, related_name='songs')  # Reference to the artist
-    album = models.ForeignKey('Album', on_delete=models.SET_NULL, related_name='songs', blank=True, null=True)  # Optional reference to the album
-    duration = models.DurationField()  # Duration of the song
-    release_date = models.DateField()  # Release date of the song
-    genre = models.CharField(max_length=100, blank=True, null=True)  # Optional genre
-    audio_file = models.FileField(upload_to='songs/', blank=True, null=True)  # Optional audio file upload
-    lyrics = models.TextField(blank=True, null=True)  # Optional lyrics of the song
-    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set when the song is created
+    title = models.CharField(max_length=255)
+    artist = models.ForeignKey('Artist', on_delete=models.CASCADE, related_name='songs')
+    album = models.ForeignKey('Album', on_delete=models.SET_NULL, related_name='songs', blank=True, null=True)
+    duration = models.DurationField()
+    release_date = models.DateField(blank=True, null=True)
+    genre = models.CharField(max_length=100, blank=True, null=True)
+    audio_file = models.FileField(upload_to='songs/', blank=True, null=True)
+    cover_image = models.ImageField(upload_to='songs_covers/', blank=True, null=True)
+    lyrics = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def formatted_duration(self):
+        if self.duration:
+            total_seconds = int(self.duration.total_seconds())
+            minutes, seconds = divmod(total_seconds, 60)
+            return f"{minutes}:{seconds:02d}"
+        return "0:00"
 
+    class Meta:
+        verbose_name = "Song"
+        verbose_name_plural = "Songs"
+        ordering = ['-release_date']
+
+    def __str__(self):
+        return self.title

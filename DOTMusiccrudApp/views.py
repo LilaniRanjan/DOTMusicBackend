@@ -38,9 +38,31 @@ def get_today_in_music(request):
 
 # ---------------------------------------------------------------------------------------------
 
+# def get_songs_by_artist(request, artist_id):
+#     # Fetch songs where artist matches the given artist_id
+#     songs = list(Songs.objects.filter(artist_id=artist_id).values())
+#     return JsonResponse({'songs': songs}, safe=False)
+
+
+# def get_artist_name(request, artist_id):
+#     try:
+#         # Fetch the artist with the given artist_id
+#         artist = Artist.objects.get(id=artist_id)
+#         return JsonResponse({'artist_name': artist.name}, safe=False)  # Assuming the artist model has a 'name' field
+#     except Artist.DoesNotExist:
+#         return JsonResponse({'error': 'Artist not found'}, status=404)
+
 def get_songs_by_artist(request, artist_id):
-    # Fetch songs where artist matches the given artist_id
-    songs = list(Songs.objects.filter(artist_id=artist_id).values(
-        'id', 'title', 'album__title', 'duration', 'release_date', 'genre', 'audio_file', 'lyrics'
-    ))
-    return JsonResponse({'songs': songs}, safe=False)
+    try:
+        # Fetch the artist name
+        artist = Artist.objects.get(id=artist_id)
+        artist_name = artist.name  # Assuming the Artist model has a 'name' field
+
+        # Fetch songs where artist matches the given artist_id
+        songs = list(Songs.objects.filter(artist_id=artist_id).values())
+
+        # Return both artist name and songs
+        return JsonResponse({'artist_name': artist_name, 'songs': songs}, safe=False)
+    except Artist.DoesNotExist:
+        return JsonResponse({'error': 'Artist not found'}, status=404)
+
